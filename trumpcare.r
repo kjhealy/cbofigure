@@ -25,16 +25,16 @@ p1 <- p + geom_dumbbell(size=3, color="#e3e2e1",
                 colour_x = party.colors[1], colour_xend = party.colors[2],
                 dot_guide=TRUE, dot_guide_size=0.25) +
     scale_x_continuous(labels = scales::dollar,
-                       breaks = c(0, 5000, 10000, 15000)) +
+                       breaks = c(1000, 5000, 10000, 15000)) +
     guides(fill = guide_legend(override.aes = list(color = rev(party.colors),
                                                    size = 4))) +
     labs(x="Net Premium Paid",
-         y=NULL,
-         fill = "",
-         title="CBO Estimates of Net Premium Payments\nUnder Current Law and the AHCA",
-         caption="Source: CBO Estimates, March 13th 2017, Table 4. Figure: Kieran Healy.") +
-    theme_ipsum(grid="X") +
-    theme(panel.grid.major.x=element_line(size=0.05),
+         y = NULL,
+         fill = NULL,
+         title = "CBO Estimates of Net Premium Payments\nUnder Current Law and the AHCA",
+         caption = "Source: CBO Estimates, March 13th 2017, Table 4. Figure: Kieran Healy.") +
+    theme_ipsum(grid= "X" ) +
+    theme(panel.grid.major.x=element_line(size=0.1),
           legend.position = "top") +
     facet_wrap(~ Income, ncol = 1)
 
