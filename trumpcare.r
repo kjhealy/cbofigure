@@ -44,3 +44,23 @@ dev.off()
 
 
 ggsave("figures/cbo-tab4.png")
+
+
+## May CBO scoring
+
+theme_set(theme_minimal())
+
+data_may <- read_csv("data/cbo-hr1628.csv")
+data_may$Income <- gsub("0 \\(", "0\n(", data_may$Income)
+
+p <- ggplot(data_may, aes(x = Income, y = Premium, fill = Law))
+
+p + geom_col(position = "dodge") + facet_wrap(~ Age, nrow = 3) + coord_flip() +
+    theme(legend.position = "top") +
+    guides(fill = guide_legend(reverse = TRUE)) +
+    scale_fill_manual(values = my.colors()) +
+    scale_y_continuous(labels = scales::dollar) +
+    labs(x = "",
+         y = "Net Premium Paid",
+         title = "Net Premiums Paid: May 24th CBO Estimates",
+         subtitle = "For a single person, showing implementation scenarios by Age and Income.")
