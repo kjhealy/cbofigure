@@ -12,14 +12,14 @@ ifelse(!dir.exists(file.path("figures")), dir.create(file.path("figures")), FALS
 data <- read_csv("data/cbo-table4.csv")
 
 ## Geom Dumbbell wants wide format
-data_s <- select(data, Law:Age, Net)
-data_w <- spread(data_s, Law, Net)
-data_w$Dummy <- c("Current Law", "AHCA")
+data_w <- data %>%
+    select(Law:Age, Net) %>%
+    pivot_wider(names_from = Law, values_from = Net)
 
 party.colors <- c("#2E74C0", "#CB454A")
 
 cairo_pdf(file="figures/cbo-tab4.pdf", height = 6, width = 6)
-p <- ggplot(data_w, aes(y=Age, x=Current, xend=AHCA, fill = Dummy))
+p <- ggplot(data_w, aes(y=Age, x=Current, xend=AHCA))
 
 p1 <- p + geom_dumbbell(size=3, color="#e3e2e1",
                 colour_x = party.colors[1], colour_xend = party.colors[2],
